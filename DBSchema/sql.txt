@@ -1,0 +1,22 @@
+CREATE TABLE user (
+  id INTEGER NOT NULL PRIMARY KEY,
+  user_name VARCHAR(255)
+)ENGINE = InnoDB;
+
+INSERT INTO user(id, user_name) VALUES
+  (1, 'Oleg'),
+  (2, 'Denis');
+
+CREATE TABLE account(
+  account_id INTEGER NOT NULL PRIMARY KEY,
+  account_number VARCHAR(255),
+  balance DOUBLE,
+  FOREIGN KEY fk_account_user_id (account_id) REFERENCES user (id)
+) ENGINE = InnoDB;
+
+INSERT INTO account (account_id, account_number, balance) VALUES (1, '2541', 100.12);
+INSERT INTO account (account_id, account_number, balance) VALUES (2, '2542', 2.3);
+INSERT INTO account (account_id, account_number, balance) VALUES (3, '2563', 54.1);
+
+SELECT * FROM user, account;
+SELECT * FROM user,account WHERE user.user_name='Oleg';
