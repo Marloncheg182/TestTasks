@@ -1,22 +1,23 @@
 CREATE TABLE user (
-  id INTEGER NOT NULL PRIMARY KEY,
+  user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
   user_name VARCHAR(255)
-)ENGINE = InnoDB;
+);
 
-INSERT INTO user(id, user_name) VALUES
-  (1, 'Oleg'),
-  (2, 'Denis');
 
-CREATE TABLE account(
-  account_id INTEGER NOT NULL PRIMARY KEY,
+
+CREATE TABLE account (
+  account_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
   account_number VARCHAR(255),
   balance DOUBLE,
-  FOREIGN KEY fk_account_user_id (account_id) REFERENCES user (id)
-) ENGINE = InnoDB;
+  user_id INT ,
+  FOREIGN KEY (user_id) REFERENCES user(user_id)
+);
 
-INSERT INTO account (account_id, account_number, balance) VALUES (1, '2541', 100.12);
-INSERT INTO account (account_id, account_number, balance) VALUES (2, '2542', 2.3);
-INSERT INTO account (account_id, account_number, balance) VALUES (3, '2563', 54.1);
+INSERT INTO user (user_name) VALUES
+  ('Oleg'),('Denis');
 
-SELECT * FROM user, account;
-SELECT * FROM user,account WHERE user.user_name='Oleg';
+INSERT INTO account (account_id, account_number, balance, user_id) VALUES (1, '2541', 100.12, 1);
+INSERT INTO account (account_id, account_number, balance, user_id) VALUES (2, '2542', 2.3, 1);
+INSERT INTO account(account_id, account_number, balance, user_id)  VALUES (3, '2563', 54.1, 2);
+
+SELECT * FROM account JOIN user USING (user_id)
